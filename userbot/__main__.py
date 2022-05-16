@@ -15,7 +15,7 @@ from .utils import (
     verifyLoggerGroup,
 )
 
-LOGS = logging.getLogger("CatUserbot")
+LOGS = logging.getLogger("GianUserbot")
 
 print(userbot.__copyright__)
 print(f"Licensed under the terms of the {userbot.__license__}")
@@ -57,7 +57,7 @@ async def externalrepo():
         )
     if Config.BADCAT:
         await install_externalrepo(
-            Config.BADCAT_REPO, Config.BADCAT_REPOBRANCH, "badcatext"
+            Config.BADCAT_REPO, Config.GIANBOT_REPOBRANCH, "badcatext"
         )
 
 
