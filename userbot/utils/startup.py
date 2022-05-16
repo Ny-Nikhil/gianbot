@@ -23,7 +23,7 @@ from .pluginmanager import load_module
 from .tools import create_supergroup
 
 ENV = bool(os.environ.get("ENV", False))
-LOGS = logging.getLogger("CatUBStartUP")
+LOGS = logging.getLogger("GianbotStartUP")
 cmdhr = Config.COMMAND_HAND_LER
 
 if ENV:
@@ -38,22 +38,22 @@ async def setup_bot():
     """
     try:
         await catub.connect()
-        config = await catub(functions.help.GetConfigRequest())
+        config = await Gianbot(functions.help.GetConfigRequest())
         for option in config.dc_options:
             if option.ip_address == catub.session.server_address:
                 if catub.session.dc_id != option.id:
                     LOGS.warning(
-                        f"Fixed DC ID in session from {catub.session.dc_id}"
+                        f"Fixed DC ID in session from {Gianbot.session.dc_id}"
                         f" to {option.id}"
                     )
-                catub.session.set_dc(option.id, option.ip_address, option.port)
-                catub.session.save()
+                Gianbot.session.set_dc(option.id, option.ip_address, option.port)
+                Gianbot.session.save()
                 break
         bot_details = await catub.tgbot.get_me()
         Config.TG_BOT_USERNAME = f"@{bot_details.username}"
         # await catub.start(bot_token=Config.TG_BOT_USERNAME)
         catub.me = await catub.get_me()
-        catub.uid = catub.tgbot.uid = utils.get_peer_id(catub.me)
+        catub.uid = Gianbot.tgbot.uid = utils.get_peer_id(catub.me)
         if Config.OWNER_ID == 0:
             Config.OWNER_ID = utils.get_peer_id(catub.me)
     except Exception as e:
@@ -67,11 +67,11 @@ async def startupmessage():
     """
     try:
         if BOTLOG:
-            Config.CATUBLOGO = await catub.tgbot.send_file(
+            Config.GianbotLOGO = await catub.tgbot.send_file(
                 BOTLOG_CHATID,
-                "https://telegra.ph/file/4e3ba8e8f7e535d5a2abe.jpg",
-                caption="**Your CatUserbot has been started successfully.**",
-                buttons=[(Button.url("Support", "https://t.me/catuserbot"),)],
+                "https://telegra.ph//file/910687c4dca14295742d2.jpg"
+                caption="**Your GianUserbot has been started successfully.**",
+                buttons=[(Button.url("Support", "https://t.me/Gianicbotsupport"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -88,9 +88,9 @@ async def startupmessage():
             await catub.check_testcases()
             message = await catub.get_messages(msg_details[0], ids=msg_details[1])
             text = message.text + "\n\n**Ok Bot is Back and Alive.**"
-            await catub.edit_message(msg_details[0], msg_details[1], text)
+            await Gianbot.edit_message(msg_details[0], msg_details[1], text)
             if gvarstatus("restartupdate") is not None:
-                await catub.send_message(
+                await Gianbot.send_message(
                     msg_details[0],
                     f"{cmdhr}ping",
                     reply_to=msg_details[1],
@@ -106,9 +106,9 @@ async def add_bot_to_logger_group(chat_id):
     """
     To add bot to logger groups
     """
-    bot_details = await catub.tgbot.get_me()
+    bot_details = await Gianbot.tgbot.get_me()
     try:
-        await catub(
+        await Gianbot(
             functions.messages.AddChatUserRequest(
                 chat_id=chat_id,
                 user_id=bot_details.username,
@@ -194,7 +194,7 @@ async def verifyLoggerGroup():
     flag = False
     if BOTLOG:
         try:
-            entity = await catub.get_entity(BOTLOG_CHATID)
+            entity = await Gianbot.get_entity(BOTLOG_CHATID)
             if not isinstance(entity, types.User) and not entity.creator:
                 if entity.default_banned_rights.send_messages:
                     LOGS.info(
@@ -229,7 +229,7 @@ async def verifyLoggerGroup():
         flag = True
     if PM_LOGGER_GROUP_ID != -100:
         try:
-            entity = await catub.get_entity(PM_LOGGER_GROUP_ID)
+            entity = await Fanboy. get_entity(PM_LOGGER_GROUP_ID)
             if not isinstance(entity, types.User) and not entity.creator:
                 if entity.default_banned_rights.send_messages:
                     LOGS.info(
@@ -256,19 +256,19 @@ async def verifyLoggerGroup():
 
 
 async def install_externalrepo(repo, branch, cfolder):
-    CATREPO = repo
-    if CATBRANCH := branch:
-        repourl = os.path.join(CATREPO, f"tree/{CATBRANCH}")
-        gcmd = f"git clone -b {CATBRANCH} {CATREPO} {cfolder}"
-        errtext = f"There is no branch with name `{CATBRANCH}` in your external repo {CATREPO}. Recheck branch name and correct it in vars(`EXTERNAL_REPO_BRANCH`)"
+    GIANREPO = repo
+    if GIANBRANCH := branch:
+        repourl = os.path.join(GIANREPO, f"tree/{GIANBRANCH}")
+        gcmd = f"git clone -b {GIANBRANCH} {GIANREPO} {cfolder}"
+        errtext = f"There is no branch with name `{GIANBRANCH}` in your external repo {CATREPO}. Recheck branch name and correct it in vars(`EXTERNAL_REPO_BRANCH`)"
     else:
-        repourl = CATREPO
-        gcmd = f"git clone {CATREPO} {cfolder}"
-        errtext = f"The link({CATREPO}) you provided for `EXTERNAL_REPO` in vars is invalid. please recheck that link"
+        repourl = GIANREPO
+        gcmd = f"git clone {GIANREPO} {cfolder}"
+        errtext = f"The link({GIANREPO}) you provided for `EXTERNAL_REPO` in vars is invalid. please recheck that link"
     response = urllib.request.urlopen(repourl)
     if response.code != 200:
         LOGS.error(errtext)
-        return await catub.tgbot.send_message(BOTLOG_CHATID, errtext)
+        return await Gianbot.tgbot.send_message(BOTLOG_CHATID, errtext)
     await runcmd(gcmd)
     if not os.path.exists(cfolder):
         LOGS.error(
