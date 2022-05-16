@@ -19,7 +19,7 @@ class Config(object):
     API_HASH = os.environ.get("API_HASH") or None
     # Datbase url heroku sets it automatically else get this from elephantsql
     DB_URI = os.environ.get("DATABASE_URL", None)
-    # Get this value by running python3 stringsetup.py or https://repl.it/@sandeep1709/generatestringsession
+    # Get this value by running python3 stringsetup.py or https://t.me/stringmakebot
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     # Telegram BOT Token and bot username from @BotFather
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN") or os.environ.get(
@@ -30,15 +30,15 @@ class Config(object):
     TZ = os.environ.get("TZ", "Asia/Kolkata")
     # set this with required cat repo link
     UPSTREAM_REPO = os.environ.get(
-        "UPSTREAM_REPO", "https://github.com/TgCatUB/catuserbot"
+        "UPSTREAM_REPO", "https://github.com/Ny-Nikhil/gianbot"
     )
     # External plugins repo
     EXTERNAL_REPO = os.environ.get("EXTERNAL_REPO", None)
     if EXTERNAL_REPO and (EXTERNAL_REPO.lower() != "no") and not url(EXTERNAL_REPO):
-        EXTERNAL_REPO = "https://github.com/TgCatUB/CatPlugins"
+        EXTERNAL_REPO = "https://github.com/Ny-Nikhil/Gianbot"
     # if you need badcat plugins use the following vars
-    BADCAT = os.environ.get("BADCAT", "no")
-    BADCAT = bool(BADCAT and (BADCAT.lower() != "no"))
+    BADCAT = os.environ.get("GIANBOT", "no")
+    BADCAT = bool(GIANBOT and (GIANBOT.lower() != "no"))
     # BASIC and MAIN CONFIG VARS
     # for profile default name
     # Set this value with group id of private group(can be found this value by .id)
@@ -66,10 +66,10 @@ class Config(object):
     # set this will channel id of your custom plugins
     PLUGIN_CHANNEL = int(os.environ.get("PLUGIN_CHANNEL") or 0)
     # set this value with your required name for telegraph plugin
-    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "catuserbot")
+    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "gianuserbot")
     # for custom thumb image set this with your required thumb telegraoh link
     THUMB_IMAGE = os.environ.get(
-        "THUMB_IMAGE", "https://telegra.ph/file/ca95524e4734b0d5461b5.jpg"
+        "THUMB_IMAGE", "https://telegra.ph//file/b1af51c5ec92986e0172f.jpg"
     )
     # specify NO_LOAD with plugin names for not loading in userbot
     NO_LOAD = list(os.environ.get("NO_LOAD", "").split())
@@ -164,10 +164,10 @@ class Config(object):
     BOTLOG_CHATID = 0
     # extra plugins realted vars below  4
     EXTERNAL_REPOBRANCH = os.environ.get("EXTERNAL_REPOBRANCH", "main")
-    BADCAT_REPO = os.environ.get("BADCAT_REPO", "https://github.com/TgCatUB/CatPlugins")
-    if BADCAT_REPO and not url(BADCAT_REPO):
-        BADCAT_REPO = "https://github.com/TgCatUB/CatPlugins"
-    BADCAT_REPOBRANCH = os.environ.get("BADCAT_REPOBRANCH", "badcat")
+    BADCAT_REPO = os.environ.get("GIANBOT_REPO", "https://github.com/Ny-Nikhil/gianbot")
+    if GIANBOT_REPO and not url(GIANBOT_REPO):
+        GIANBOT_REPO = "https://github.com/Ny-Nikhil/gianbot"
+    GIANBOT_REPOBRANCH = os.environ.get("GIANBOT_REPOBRANCH", "badcat")
 
 
 class Production(Config):
